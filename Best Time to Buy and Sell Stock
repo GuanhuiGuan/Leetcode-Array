@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int maxDyn = 0;                         //dynamic max diff
+        int maxDif = 0;                         //greatest diff so far
+        if(prices.size() < 1){
+            return maxDif;
+        }
+        for(int i = 0; i < prices.size() - 1; i++){
+            // cout << maxDyn << maxDif << endl;
+            maxDyn = max(0, maxDyn + prices[i + 1] - prices[i]);    //cummulative diff between elements; when negative, reset to 0(new min)
+            maxDif = max(maxDyn, maxDif);
+        }
+        
+        return maxDif;
+    }
+};
