@@ -1,0 +1,21 @@
+class Solution {
+public:
+    void reverseWords(string &s) {
+        reverse(s.begin(), s.end());    //reverse all
+        int newi = 0;   //real index for new string
+        for(int i = 0; i < s.size(); i++){
+            if(s[i] != ' '){    // not space
+                if(newi != 0)   s[newi++] = ' ';    //not first word, add space
+                int j = i;
+                while(j < s.size() && s[j] != ' '){
+                    s[newi++] = s[j++];
+                }
+                reverse((s.begin() + newi) - (j - i), s.begin() + newi);  //s.begin() + newi is pointing to a space behind a word
+                // (j - i) marks #increment -> #letter in the word -> length of the word
+                // start = end - length + 1, now (s.begin() + newi) == end + 1
+                i = j;  //new scan point
+            }
+        }
+        s.erase(s.begin() + newi, s.end()); //erase the rest
+    }   
+};
