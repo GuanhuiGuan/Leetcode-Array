@@ -1,0 +1,30 @@
+#include<cmath.h>
+class Solution {
+public:
+    int myAtoi(string str) {
+        if(str.size() == 0)    return 0;
+        int sign = 1;
+        long int i = 0;
+        long int re = 0;
+        while(str[i] == ' ' && i < str.size()){i++;}    //skip all whitespaces
+        if(str[i] != '+' && str[i] != '-' && !isdigit(str[i]))  return 0;   //illegal input
+        if(str[i] == '-')   sign = -1;  //set up sign separately
+        if(!isdigit(str[i])){i++;}    //initial value
+        long int temp;
+
+        while(isdigit(str[i]) && i < str.size())
+        {
+            temp = 10 * re + char(str[i]) - '0';
+            if(temp > INT_MAX)    //overflow detection
+            {
+                if(sign == 1)  {re = INT_MAX; break;}
+                else if(temp > -INT_MIN)    {re = -INT_MIN; break;}
+            }
+            re = temp;
+            i++;
+        }
+        
+        re *= sign;
+        return re;
+    }
+};
