@@ -1,0 +1,13 @@
+class Solution {
+    public boolean isOneBitCharacter(int[] bits) {
+        int n = bits.length, i = 0;
+        while(i < n - 1)//till the second to last bit
+        {
+            if(bits[i] == 0){//represent where will the start of next character be
+                i++;
+            }
+            else{i += 2;}
+        }
+        return i == n - 1 ? true : false;
+    }
+}
