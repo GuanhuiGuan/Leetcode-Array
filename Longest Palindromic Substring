@@ -1,0 +1,19 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        if(n < 2){return s;}
+        int ml = 1;//max length
+        int sp = 0;//max start point
+        for(int i = 0; i < n; i++){
+            int start = i, end = i;
+            while(start > 0 && s.charAt(start - 1) == s.charAt(i)){start--;}
+            while(end < n - 1 && s.charAt(end + 1) == s.charAt(i)){end++;}
+            while(start >= 0 && end <= n - 1 && s.charAt(start) == s.charAt(end)){start--; end++;}
+            if(end - start - 1 > ml){
+                sp = start + 1;
+                ml = end - start - 1;//(end - 1) - (start + 1)  + 1
+            }
+        }
+        return s.substring(sp, sp + ml);
+    }
+}
