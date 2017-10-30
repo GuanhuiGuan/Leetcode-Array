@@ -1,0 +1,25 @@
+class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+        if(grid == null){return 0;}
+        int m = grid.length;
+        int n = grid[0].length;
+        int maxA = 0;
+        
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == 1){
+                    maxA = Math.max(maxA, dfs(grid, i, j, m, n));
+                }
+            }
+        }
+        return maxA;
+    }
+    public int dfs(int[][] grid, int i, int j, int m, int n){//check if inside the boundaries
+        if(i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == 1){//remember to check if grid[][] is 1 otherwise inf loop
+            grid[i][j] = 0;//mark that this position has been explored
+            return 1 + dfs(grid, i + 1, j, m, n) + dfs(grid, i - 1, j, m, n) + dfs(grid, i, j - 1, m, n) + dfs(grid, i, j + 1, m, n);
+        }
+        return 0;
+    }
+    
+}
