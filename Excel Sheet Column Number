@@ -1,0 +1,10 @@
+class Solution {
+    public int titleToNumber(String s) {
+        int re = 0;
+        s = s.toUpperCase();
+        for(int i = 0; i < s.length(); i++){
+            re = 26 * re + s.charAt(i) - 'A' + 1;
+        }
+        return re;
+    }
+}
