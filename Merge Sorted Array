@@ -1,0 +1,7 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int p1 = m - 1, p2 = n - 1, p3 = m + n - 1;//pointer of nums1, 2 and all, from back to front
+        while(p1 >= 0 && p2 >= 0)   nums1[p3--] = nums1[p1] > nums2[p2] ? nums1[p1--] : nums2[p2--];
+        while(p2 >= 0)  nums1[p3--] = nums2[p2--];//if p1 is greater, it's already in the array nums1
+    }
+}
