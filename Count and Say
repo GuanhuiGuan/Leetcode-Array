@@ -1,0 +1,26 @@
+class Solution {
+    public String countAndSay(int n) {
+        StringBuilder now = new StringBuilder("1");
+        StringBuilder pre;
+        
+        for(int i = 1; i < n; i++){//iterate from 1 to n, say the previous one as the current one
+            pre = now;
+            now = new StringBuilder();
+            char tag = pre.charAt(0);//the number we're counting
+            int count = 1;//the count
+            for(int j = 1; j < pre.length(); j++){
+                if(pre.charAt(j) != tag){
+                    now.append(count);//Int auto transformed to string??
+                    now.append(tag);
+                    tag = pre.charAt(j);//new digit
+                    count = 1;//reset count
+                }
+                else{count++;}
+            }
+            now.append(count);//the last group is not appended in the loop
+            now.append(tag);
+        }
+        
+        return now.toString();
+    }
+}
