@@ -1,0 +1,31 @@
+class Solution {//Normal Method
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;//in case k is greater than n
+        int[] front = Arrays.copyOfRange(nums, 0, n - k);
+        int[] back = Arrays.copyOfRange(nums, n - k, n);
+        for(int i = 0; i < k; i++){
+            nums[i] = back[i];
+        }
+        for(int i = 0; i < n - k; i++){
+            nums[i + k] = front[i];
+        }
+    }
+}
+
+class Solution {//3 Reversions
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;//in case it's greater than n
+        reverse(nums, 0, n - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, n - 1);
+    }
+    public void reverse(int[] nums, int start, int end){
+        while(start < end){
+            int temp = nums[end];
+            nums[end--] = nums[start];
+            nums[start++] = temp;
+        }
+    }
+}
