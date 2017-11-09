@@ -1,0 +1,22 @@
+class Solution {
+    public void rotate(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        //clockwise: flip vertically and transpose
+        //counterclockwise: flip horizontally and transpose
+        for(int i = 0; i < m / 2; i++){//only go through half
+            for(int j = 0; j < n; j++){
+                int buff = matrix[i][j];
+                matrix[i][j] = matrix[m - i - 1][j];
+                matrix[m - i - 1][j] = buff;
+            }
+        }
+        for(int i = 0; i < m; i++){
+            for(int j = i + 1; j < n; j++){//only greater than i
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+    }
+}
