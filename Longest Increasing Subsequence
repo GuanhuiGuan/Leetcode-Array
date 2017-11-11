@@ -1,0 +1,18 @@
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int count = 0;
+        int[] minTails = new int[n];//minTails[i] records the minimum tail of subsequence of length i+1
+        for(int v: nums){
+            int start = 0, end = count;//note that end is count here
+            while(start < end){//binary search; if v <= minTails[i], minTails[i] = v; else v appended
+                int mid = (start + end) / 2;
+                if(v > minTails[mid]) start = mid + 1;
+                else    end = mid;
+            }
+            minTails[start] = v;
+            if(start == count)  count++;//record max length
+        }
+        return count;
+    }
+}
