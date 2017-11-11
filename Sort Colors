@@ -1,0 +1,38 @@
+class Solution {
+    public void sortColors(int[] nums) {
+        //counting sort
+        // int[] count = new int[3];
+        // for(int x: nums){
+        //     count[x]++;
+        // }
+        // int i = 0;
+        // for(int j = 0; j < count.length; j++){
+        //     while(count[j] > 0){
+        //         nums[i] = j;
+        //         i++;
+        //         count[j]--;
+        //     }
+        // }
+        
+        //2-pointer quicksort(considering duplicates)
+        int i = -1, j = i;
+        for(int k = 0; k < nums.length; k++){
+            if(nums[k] == 0){
+                j++;
+                int temp = nums[j];
+                nums[j] = nums[k];
+                nums[k] = temp;
+                i++;
+                temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+            else if(nums[k] == 1){
+                j++;
+                int temp = nums[j];
+                nums[j] = nums[k];
+                nums[k] = temp;
+            }
+        }
+    }
+}
