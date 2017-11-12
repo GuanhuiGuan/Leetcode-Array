@@ -1,0 +1,77 @@
+class Solution {
+//________________Solution with extra space____________________
+    public void gameOfLife(int[][] board) {
+        int m = board.length;
+        if(m == 0)  return;
+        int n = board[0].length;
+        int[][] next = new int[m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                int cell = proxi(board, i, j, m, n);
+                switch(cell){
+                    case 2:
+                        if(board[i][j] == 1)    next[i][j] = 1;
+                        else    next[i][j] = 0;
+                        break;
+                    case 3:
+                        next[i][j] = 1;
+                        break;
+                    default:
+                        next[i][j] = 0;
+                }
+            }
+        }
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                board[i][j] = next[i][j];
+            }
+        }
+    }
+    public int proxi(int[][] board, int i, int j, int m, int n){
+        int count = 0;
+        if(i > 0)   count += board[i - 1][j];     
+        if(j > 0)   count += board[i][j - 1];
+        if(i < m - 1)   count += board[i + 1][j];
+        if(j < n - 1)   count += board[i][j + 1];
+        if(i > 0 && j > 0)  count += board[i - 1][j - 1];
+        if(i > 0 && j < n - 1)  count += board[i - 1][j + 1];
+        if(i < m - 1 && j > 0)   count += board[i + 1][j - 1];
+        if(i < m - 1 && j < n - 1)   count += board[i + 1][j + 1];
+        return count;
+    }
+}
+
+//___________________In place Using bit_____________
+class Solution {
+    public void gameOfLife(int[][] board) {
+        //00 01 10 11 next <- now; all next originally 0
+        //get now: x & 1
+        //get next: x >> 1
+        int m = board.length;
+        if(m == 0)  return;
+        int n = board[0].length;
+        //every value visited here is unchanged in this dual-loop
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(board[i][j] == 0 && proxi(board, m, n, i, j) == 3)   board[i][j] = 2;//10
+                if(board[i][j] == 1 && (proxi(board, m, n, i, j) == 2 || proxi(board, m, n, i, j) == 3))    board[i][j] = 3;//11
+                //others don't need to change cause they're already 0s
+            }
+        }
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                board[i][j] >>= 1;
+            }
+        }
+    }
+    
+    public int proxi(int[][] board, int m, int n, int i, int j){//std search proximity method
+        int count = 0;
+        for(int x = Math.max(0, i - 1); x < Math.min(m, i + 2); x++){
+            for(int y = Math.max(0, j - 1); y < Math.min(n, j + 2); y++){
+                count += board[x][y] & 1;//value could'v been changed
+            }
+        }
+        return count - (board[i][j] & 1);//subtract the center value
+    }
+}
