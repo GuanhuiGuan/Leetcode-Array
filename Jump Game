@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+//         // steps from terminal
+//         boolean[] dp = new boolean[nums.length];
+//         for(boolean i: dp)  i = false;
+//         dp[0] = true;
+        
+//         for(int i = 1; i < dp.length; i++){
+//             for(int j = 0; j <= nums[(nums.length - 1) - i]; j++){
+//                 dp[i] = dp[i - j];
+//                 if(dp[i] == true)   break;
+//             }
+//         }
+        
+//         return dp[dp.length - 1];
+        
+        // linear iterate to find furthest reachable index
+        // if the iteration goes beyond the furthest index, it cannot reach the end
+        int max = 0;
+        int i = 0;
+        for(; i < nums.length && i <= max; i++){
+            max = Math.max(max, i + nums[i]);
+        }
+        // check if i has reached the end
+        // i is used out of the loop so it must be separately intialized
+        return i == nums.length;
+    }
+}
