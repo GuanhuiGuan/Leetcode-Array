@@ -26,6 +26,29 @@
  *     public List<NestedInteger> getList();
  * }
  */
+
+//______________________Improved________________
+class Solution {
+    public int depthSum(List<NestedInteger> nestedList) {
+        return expand(nestedList, 1);
+    }
+    
+    
+    public int expand(List<NestedInteger> list, int d){
+        int sum = 0;
+        for(NestedInteger item: list){
+            if(item.isInteger()){
+                sum += d*item.getInteger();
+            }
+            else{
+                sum += expand(item.getList(), d+1);
+            }
+        }
+        return sum;
+    }
+}
+
+
 class Solution {
     public int depthSum(List<NestedInteger> nestedList) {
         List<Integer> depthSum = new ArrayList<>();
